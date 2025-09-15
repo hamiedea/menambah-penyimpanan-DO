@@ -131,3 +131,27 @@ source : https://g.co/gemini/share/7d8bf8fe40a9
 
 # OTOMATIS
 
+## 1. Buat Directory
+
+``` bash
+mkdir gabungan_volume
+cd gabungan_volume
+```
+
+## 1. download file
+
+``` bash
+wget https://raw.githubusercontent.com/hamiedea/menambah-penyimpanan-DO/main/gabungan_volume.sh
+```
+## Buat Script Bisa Dieksekusi: Berikan izin eksekusi pada file tersebut
+
+``` bash
+chmod +x gabungan_volume.sh
+```
+
+## jalankan script
+
+``` bash
+sudo ./gabungan_volume.sh
+```
+tunggu  menit
