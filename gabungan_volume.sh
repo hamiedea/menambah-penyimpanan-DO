@@ -2,6 +2,7 @@
 
 # ==============================================================================
 # Script untuk Mengotomatisasi Penggabungan Volume DigitalOcean menggunakan LVM
+# VERSI 1.1 - Dengan perbaikan Unmount
 # ==============================================================================
 
 # --- Konfigurasi (Bisa diubah sesuai kebutuhan) ---
@@ -53,9 +54,7 @@ fi
 echo -e "\n${GREEN}Mencari volume DigitalOcean yang baru...${NC}"
 TARGET_DISKS=()
 for disk in /dev/disk/by-id/scsi-0DO_Volume_*; do
-    # Memastikan file disk benar-benar ada
     if [ -e "$disk" ]; then
-        # Cek apakah disk ini sudah menjadi Physical Volume (PV)
         if ! pvs "$disk" &>/dev/null; then
             echo "   -> Ditemukan volume baru: $disk"
             TARGET_DISKS+=("$disk")
@@ -75,6 +74,14 @@ for disk in "${TARGET_DISKS[@]}"; do
     echo " - $disk"
 done
 echo ""
+
+# --- [PERBAIKAN] Tambahan langkah untuk unmount ---
+echo "Memastikan semua target volume sudah di-unmount..."
+for disk in "${TARGET_DISKS[@]}"; do
+    # Mencoba unmount disk dan semua partisinya, mengabaikan error jika sudah unmounted
+    umount "$disk"* &>/dev/null || true
+done
+# ----------------------------------------------------
 
 # 5. Eksekusi Perintah LVM
 echo "Membuat Physical Volumes (PV)..."
@@ -99,7 +106,6 @@ mount "$LV_PATH" "$MOUNT_POINT" || error_exit "Gagal me-mount Logical Volume."
 
 echo "Menambahkan entri ke /etc/fstab agar mount permanen..."
 FSTAB_ENTRY="$LV_PATH $MOUNT_POINT $FILE_SYSTEM defaults,nofail,discard 0 0"
-# Cek agar tidak ada duplikat entri
 if ! grep -qF "$FSTAB_ENTRY" /etc/fstab; then
     echo "$FSTAB_ENTRY" >> /etc/fstab
 else
