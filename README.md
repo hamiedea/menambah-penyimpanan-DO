@@ -126,9 +126,6 @@ Setelah selesai, simpan file dan keluar (tekan Ctrl+X, lalu Y, lalu Enter).
   ```
 #
 
-source : https://g.co/gemini/share/7d8bf8fe40a9
-
-
 # OTOMATIS
 
 ## 1. Buat Directory
