@@ -5,7 +5,7 @@
 - buat droplate
 - buat volume
 
-#
+# MANUAL
 ## Proses Penambahan storage 
 
 ### 1. *Back-up Data (opsional karena biasanya kita menggunakan vps baru) karena setiap data di volume akan di hapus*
@@ -19,38 +19,45 @@ edit /mnt/`volume_sgp1_*` dengan nama volume kita
 ```bash
 df -h
 ```
+<img width="1593" height="856" alt="image" src="https://github.com/user-attachments/assets/dd65f7f8-33aa-4184-8c09-300e6311e8d9" />
+
 atau
 ``` bash
 lsblk
 ```
+<img width="1592" height="851" alt="image" src="https://github.com/user-attachments/assets/400a794c-272d-4621-861b-721ee8c66041" />
+
 
 *gambar*
 
 kita dapat melihat daftar disk yang kita punya beserta volume yang kita sudah buat.  
 catat data-data volume yang akan kita perlukan seperti:  
->/mnt/volume_sgp1_01  
->/mnt/volume_sgp1_02  
->/mnt/volume_sgp1_0*
+>/mnt/volume_ams3_01  
+>/mnt/volume_ams3_02  
+>/mnt/volume_seterusnya ...
 
 dan  
 
 >/dev/sda  
 >/dev/sdb  
->/dev/sd*
+>/dev/seterusnya ...
 
 disini kita perlu mengetahui ini semua.
 
 ### 3. Melepas Volume Yang ada
 - Unmount semua 7 Volume
   ``` bash
-  sudo umount /mnt/volume_sgp1_01
-  sudo umount /mnt/volume_sgp1_02
-  sudo umount /mnt/volume_sgp1_03
+  sudo umount /mnt/volume_ams3_01
+  sudo umount /mnt/volume_ams3_02
+  sudo umount /mnt/volume_seterusnya ...
   ```
 - Hapus entri lama dari /etc/fstab (opsional : tidak berlaku untuk vps yang baru di buat)
   ``` bash
   sudo nano /etc/fstab
   ```
+  Di dalam editor, cari baris yang berhubungan dengan /mnt/volume_sgp1_01 hingga xxx (intinya cari semua volume kita). Hapus semua baris tersebut, atau (lebih aman) beri komentar dengan menambahkan tanda # di awal setiap baris.
+Setelah selesai, simpan file dan keluar (tekan Ctrl+X, lalu Y, lalu Enter).
+
 ### 4. Konfigurasi LVM - Membuat "Kolam" Penyimpanan
 
 - Install LVM Tools
@@ -120,3 +127,7 @@ disini kita perlu mengetahui ini semua.
 #
 
 source : https://g.co/gemini/share/7d8bf8fe40a9
+
+
+# OTOMATIS
+
