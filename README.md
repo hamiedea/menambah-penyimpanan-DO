@@ -19,6 +19,11 @@ edit /mnt/`volume_sgp1_*` dengan nama volume kita
 ```bash
 df -h
 ```
+atau
+``` bash
+lsblk
+```
+
 *gambar*
 
 kita dapat melihat daftar disk yang kita punya beserta volume yang kita sudah buat.  
