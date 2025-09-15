@@ -154,4 +154,4 @@ chmod +x gabungan_volume.sh
 ``` bash
 sudo ./gabungan_volume.sh
 ```
-tunggu  menit
+Tunggu sebentar
